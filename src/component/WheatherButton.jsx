@@ -1,14 +1,26 @@
 import React from 'react'
 import { Button } from 'react-bootstrap';
 
-export const WheatherButton = ({onClickCity}) => {
+export const WheatherButton = ({cities, setCity, selected, setSelected}) => {
+
   return (
-    <div>
-        <Button variant="primary" onClick={() => onClickCity("Current")}>Current Location</Button>
-        <Button variant="success" onClick={() => onClickCity("Paris")}>Paris</Button>
-        <Button variant="danger" onClick={() => onClickCity("New York")}>New York</Button>
-        <Button variant="info" onClick={() => onClickCity("Hanoi")}>Hanoi</Button>
-        <Button variant="light" onClick={() => onClickCity("Tokyo")}>Tokyo</Button>
+    <div className="d-flex gap-2 flex-wrap justify-content-center"> 
+        <Button  variant={selected === "current" ? "danger" : "warning"}
+          onClick={()=> {
+            setCity('');
+            setSelected("current");
+          }}>Current Location</Button>
+
+        {cities.map((item, index) => (
+          <Button 
+            variant={selected === item ? 'danger' : 'warning'}
+            key={index}
+            onClick={()=> {
+              setCity(item);
+              setSelected(item);
+            }}>{item}</Button>
+        ))}
+
     </div>
   )
 }
